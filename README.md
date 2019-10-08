@@ -24,8 +24,9 @@ A quick cheatsheet was made by Daniel Kummer:
 
 ## Installing git-flow
 
-See the Wiki for up-to-date [Installation Instructions](https://github.com/petervanderdoes/gitflow-avh/wiki/Installation).
-
+```console
+wget --no-check-certificate -q -O - https://github.com/seigneur/gitflow-avh/raw/develop/contrib/gitflow-installer.sh install develop| sudo bash
+```
 
 ## Integration with your shell
 
