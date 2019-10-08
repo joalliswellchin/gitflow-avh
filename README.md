@@ -124,6 +124,10 @@ The ``-d`` flag will accept all defaults.
 
     git flow config switch <[ClientName]-epicName>
 
+    And use --main flag to revert for eg.
+
+    git flow config switch --main
+
 ### Creating feature/release/hotfix/support branches
 
 * To list/start/finish/delete feature branches, use:

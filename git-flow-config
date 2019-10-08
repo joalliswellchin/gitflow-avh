@@ -307,25 +307,32 @@ cmd_help() {
 cmd_switch() {
   # Parse arguments
   value=$1
-  [ -n "$value" ] || die_help "No value given"
-
-  
-  # check if develop branch exists else throw error
-  if git_local_branch_exists "develop-$value"; then
-    git_do config "gitflow.branch.develop" "develop-$value"
-  elif ! git_local_branch_exists "develop-$value"; then
-    printf "Local branch 'develop-$value' does not exist."
-    __create_develop $value  
-    git_do config "gitflow.branch.develop" "develop-$value"
+    
+  if [ $value = "--main" ]; then
+    git_do config "gitflow.branch.master" "master"
+    git_do config "gitflow.branch.develop" "develop"
+    git_do config "gitflow.prefix.feature" "feature/"
+    git_do config "gitflow.prefix.release" "release/"
+    git_do config "gitflow.prefix.hotfix" "hotfix/"
+    git_do config "gitflow.prefix.bugfix" "bugfix/"
+  else
+    if git_local_branch_exists "develop-$value"; then
+      git_do config "gitflow.branch.develop" "develop-$value"
+    elif ! git_local_branch_exists "develop-$value"; then
+      printf "Local branch 'develop-$value' does not exist."
+      __create_develop $value  
+      git_do config "gitflow.branch.develop" "develop-$value"
+    fi
+    git_do config "gitflow.branch.master" "develop"
+    git_do config "gitflow.prefix.feature" "feature-$value/"
+    git_do config "gitflow.prefix.release" "release-$value/"
+    git_do config "gitflow.prefix.hotfix" "hotfix-$value/"
+    git_do config "gitflow.prefix.bugfix" "bugfix-$value/"
   fi
-  git_do config "gitflow.branch.master" "develop"
-  git_do config "gitflow.prefix.feature" "feature-$value/"
-  git_do config "gitflow.prefix.release" "release-$value/"
-  git_do config "gitflow.prefix.hotfix" "hotfix-$value/"
-  git_do config "gitflow.prefix.bugfix" "bugfix-$value/"
   echo
   echo "Summary of actions:"  
   echo "Changed feature, bugfix, hotfix and release branch names and appended $value"
+  
 }
 
 # Private functions
