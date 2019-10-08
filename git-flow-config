@@ -47,6 +47,7 @@ usage() {
 git flow config [list]
 git flow config set
 git flow config base
+git flow config switch
 
 Manage the git-flow configuration.
 
@@ -303,6 +304,30 @@ cmd_help() {
 	exit 0
 }
 
+cmd_switch() {
+  # Parse arguments
+  value=$1
+  [ -n "$value" ] || die_help "No value given"
+
+  
+  # check if develop branch exists else throw error
+  if git_local_branch_exists "develop-$value"; then
+    git_do config "gitflow.branch.develop" "develop-$value"
+  elif ! git_local_branch_exists "develop-$value"; then
+    printf "Local branch 'develop-$value' does not exist."
+    __create_develop $value  
+    git_do config "gitflow.branch.develop" "develop-$value"
+  fi
+  git_do config "gitflow.branch.master" "develop"
+  git_do config "gitflow.prefix.feature" "feature-$value/"
+  git_do config "gitflow.prefix.release" "release-$value/"
+  git_do config "gitflow.prefix.hotfix" "hotfix-$value/"
+  git_do config "gitflow.prefix.bugfix" "bugfix-$value/"
+  echo
+  echo "Summary of actions:"  
+  echo "Changed feature, bugfix, hotfix and release branch names and appended $value"
+}
+
 # Private functions
 __set_base () {
 
@@ -322,4 +347,16 @@ __get_base () {
 	else
 		echo "Base branch for branch '"$1"' set to '"$base"'"
 	fi
+}
+
+__create_develop () {
+  run_pre_hook "$1" "origin" "develop-$1" "develop"
+
+  gitflow_config_set_base_branch "develop" "develop-$1"
+
+  # create branch
+  git_do checkout -b "develop-$1" "develop" || die "Could not create feature branch 'develop-$1'."
+
+  run_post_hook "$1" "origin" "develop-$1" "develop"
+  echo "Created new develop branch:develop-$value"
 }
