@@ -120,6 +120,10 @@ The ``-d`` flag will accept all defaults.
 
 ![Screencast git flow init](http://i.imgur.com/lFQbY5V.gif)
 
+### Switching to a decentralized flow
+
+    git flow config switch <[ClientName]-epicName>
+
 ### Creating feature/release/hotfix/support branches
 
 * To list/start/finish/delete feature branches, use:
