@@ -16,7 +16,7 @@
 MESSAGE="$1"
 
 # Implement your script here.
-
+MESSAGE=$(git tag -l --sort=refname "*alpha.*" | grep -v +|tail -n 1|awk -F'.' '{print $1"."$2"."$3"."$4+1}')
 # Return the MESSAGE
 echo "${MESSAGE}"
 exit 0

@@ -88,12 +88,16 @@ _finish_from_develop() {
 		require_branches_equal "$DEVELOP_BRANCH" "$ORIGIN/$DEVELOP_BRANCH"
 	fi
 
-	if noflag notag; then
+  # Added the filter here for tagname, since in project flow the tag will 
+  # exist, in which case we want to increment to the latest
+	
+  if noflag notag; then
 		# We ask for a tag, be sure it does not exists or
 		# points to the latest hotfix commit
-		if git_tag_exists "$VERSION_PREFIX$TAGNAME"; then
-			git_compare_refs  "$BRANCH" "$VERSION_PREFIX$TAGNAME"^2 2>/dev/null
-			[ $? -eq 0 ] || die "Tag already exists and does not point to release branch '$BRANCH'"
+    echo "$VERSION_PREFIX$TAGNAME"
+		if git_tag_exists "$VERSION_PREFIX$TAGNAME"; then			
+      git_compare_refs  "$BRANCH" "$VERSION_PREFIX$TAGNAME"^2 2>/dev/null
+			[ $? -eq 0 ] || die "Tag already exists and does not point to release branch '$BRANCH' '$VERSION_PREFIX$TAGNAME'"
 		fi
 	fi
 
@@ -710,6 +714,9 @@ nodevelopmerge!  Don't back-merge develop branch
 	# Use branch name if no tag name is given
 	if [ "$FLAGS_tagname" != "" ]; then
 		TAGNAME=$FLAGS_tagname
+  # If flow is of type project then pull latest tag in develop branch
+  elif git_flow_is_of_type_project; then
+    TAGNAME=$(run_filter_hook release-finish-tag-message "${TAGNAME}" "$VERSION_PREFIX$TAGNAME")
 	else
 		TAGNAME=$VERSION
 	fi

@@ -315,6 +315,7 @@ cmd_switch() {
     git_do config "gitflow.prefix.release" "release/"
     git_do config "gitflow.prefix.hotfix" "hotfix/"
     git_do config "gitflow.prefix.bugfix" "bugfix/"
+    git_do config "gitflow.prefix.project" "false"
   else
     if git_local_branch_exists "develop-$value"; then
       git_do config "gitflow.branch.develop" "develop-$value"
@@ -328,6 +329,7 @@ cmd_switch() {
     git_do config "gitflow.prefix.release" "release-$value/"
     git_do config "gitflow.prefix.hotfix" "hotfix-$value/"
     git_do config "gitflow.prefix.bugfix" "bugfix-$value/"
+    git_do config "gitflow.prefix.project" "true"
   fi
   echo
   echo "Summary of actions:"  

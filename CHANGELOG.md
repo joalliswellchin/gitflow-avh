@@ -37,8 +37,13 @@
 [stevemao]: https://github.com/stevemao
 [Tiscs]: https://github.com/Tiscs
 [zheeeng]: https://github.com/zheeeng
+[dias]: https://github.com/seigneur
 
 # Changelog
+
+#### 1.13.0-dev0
+* Enhancement: Added hook for project release workflow
+* Enhancement: Added ability to switch pre release branch names
 
 #### 1.12.4-dev0
 * Preparation for next release

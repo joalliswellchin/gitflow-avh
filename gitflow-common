@@ -392,6 +392,22 @@ gitflow_is_prefixed_branch() {
 	return $return
 }
 #
+# Check if we are in project flow
+#
+git_flow_is_of_type_project() {
+  exists_flag="true"
+
+  case $exists_flag in
+  $(git config --get gitflow.prefix.project)*)
+    return=0
+    ;;
+  *)
+    return=1
+    ;;
+  esac
+  return $return
+}
+#
 # Update the config with the base of a new git-flow branch.
 #
 # @param $1 Base of the new branch
