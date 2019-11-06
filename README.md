@@ -40,18 +40,6 @@ Install GNU getopt via Homebrew:
 
 Add to your profile the content `export FLAGS_GETOPT_CMD="$(brew --prefix gnu-getopt)/bin/getopt"`.
 
-
-## Before starting your project
-
-## License terms
-
-git-flow is published under the FreeBSD License, see the
-[LICENSE](LICENSE) file. Although the FreeBSD License does not require you to
-share any modifications you make to the source code, you are very much
-encouraged and invited to contribute back your modifications to the community,
-preferably in a Github fork, of course.
-
-
 ## git flow usage
 
 ### Initialization
@@ -76,6 +64,10 @@ Once completed please run the following command to set up the main flow:
 Also configure the hooks:
 
     git config gitflow.path.hooks /usr/local/share/doc/gitflow/hooks/
+
+#### Further settings in github
+1. Set develop as your default branch in github
+2. Follow steps here - https://help.github.com/en/github/administering-a-repository/managing-the-automatic-deletion-of-branches
 
 ### Switching to a decentralized flow
 
@@ -195,6 +187,14 @@ For a wide variety of commands hooks or filters can be called before and after
 the command.  
 The files should be placed in .git/hooks  
 In the directory hooks you can find examples of all the hooks available.
+
+## License terms
+
+git-flow is published under the FreeBSD License, see the
+[LICENSE](LICENSE) file. Although the FreeBSD License does not require you to
+share any modifications you make to the source code, you are very much
+encouraged and invited to contribute back your modifications to the community,
+preferably in a Github fork, of course.
 
 ## Showing your appreciation
 
