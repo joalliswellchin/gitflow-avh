@@ -28,72 +28,20 @@ A quick cheatsheet was made by Daniel Kummer:
 wget --no-check-certificate -q -O - https://github.com/seigneur/gitflow-avh/raw/develop/contrib/gitflow-installer.sh install develop| sudo bash
 ```
 
-## Integration with your shell
-
-For those who use the [Bash](http://www.gnu.org/software/bash/) or [ZSH](http://www.zsh.org)
-shell, you can use my [fork of git-flow-completion](https://github.com/petervanderdoes/git-flow-completion)
-which includes several additions for git-flow (AVH Edition), or you can use the
-original [git-flow-completion](http://github.com/bobthecow/git-flow-completion)
-project by [bobthecow](http://github.com/bobthecow). Both offer tab-completion
-for git-flow subcommands and branch names with my fork including tab-completion
-for the commands not found in the original git-flow.
-
-
-## FAQ
-
-* See the [FAQ](http://github.com/petervanderdoes/gitflow-avh/wiki/FAQ) section
-of the project Wiki.
-* Version Numbering Scheme.  
-Starting with version 1.0, the project uses the following scheme:
-\<MAJOR\>.\<MINOR\>.\<REVISION\>\
-* AVH is the acronym of "A VirtualHome"
-
-## Please help out
-
-This project is under constant development. Feedback and suggestions are very
-welcome and I encourage you to use the [Issues
-list](http://github.com/petervanderdoes/gitflow-avh/issues) on Github to provide that
-feedback.
-
-Feel free to fork this repository and to commit your additions. For a list of
-all contributors, please see the [AUTHORS](AUTHORS) file.
-
-Any questions, tips, or general discussion can be posted to the Google group:
-[http://groups.google.com/group/gitflow-users](http://groups.google.com/group/gitflow-users)
-This is the original group set up to support the nvie branch, but I am monitoring
-the list as well for any questions related to my version.
-When you do post a question on the list please indicate which version you are,
-using the complete version number.
-
-## Contributing
-
-Fork the repository.  Then, run:
-
-```shell
-git clone -b master git@github.com:<username>/gitflow-avh.git
-cd gitflow-avh
+or clone repo and run 
+```
+sudo make install
 ```
 
-The `-b master` switch has to be added since the fork operation automatically
-clones the `develop` branch of the official gitflow repository and cloning it
-results in a local repository with just a `develop` branch.
+## Post installation setup
+Install GNU getopt via Homebrew:    
 
-If you do not have gitflow installed yet install it by running `make && make install`.
+    brew install gnu-getopt
 
-After that initialize the local gitflow repository with gitflow itself:
+Add to your profile the content `export FLAGS_GETOPT_CMD="$(brew --prefix gnu-getopt)/bin/getopt"`.
 
-```shell
-git flow init -d
-git flow feature start <your feature>
-```
 
-Then, do work and commit your changes.
-
-```shell
-git flow feature publish <your feature>
-```
-
-When done, open a pull request to your feature branch.
+## Before starting your project
 
 ## License terms
 
@@ -120,6 +68,14 @@ those questions to accept the (sane) default suggestions.
 The ``-d`` flag will accept all defaults.
 
 ![Screencast git flow init](http://i.imgur.com/lFQbY5V.gif)
+    
+Once completed please run the following command to set up the main flow:
+
+    git flow config switch --main
+
+Also configure the hooks:
+
+    git config gitflow.path.hooks /usr/local/share/doc/gitflow/hooks/
 
 ### Switching to a decentralized flow
 
